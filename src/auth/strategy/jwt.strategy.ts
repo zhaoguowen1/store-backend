@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
-// import { UserEntity } from 'src/user/entities/user.entity';
 import { AuthService } from '../auth.service';
+import { User } from 'generated/prisma';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -20,11 +20,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       secretOrKey: configService.get<string>('JWT_SECRET'),
     });
   }
-  async validate(payload: UserEntity) {
-    // const user = await this.authService.validateUser(payload);
-    // if (!user) {
-    //   throw new HttpException('用户不存在', HttpStatus.UNAUTHORIZED);
-    // }
-    // return user;
+
+  async validate(payload: User) {
+    const user = await this.authService.validateUser(payload);
+    if (!user) {
+      throw new HttpException('用户不存在', HttpStatus.UNAUTHORIZED);
+    }
+    return user;
   }
 }

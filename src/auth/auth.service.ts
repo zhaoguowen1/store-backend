@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-// import { UserEntity } from 'src/user/entities/user.entity';
+import { User } from 'generated/prisma';
 import { UserService } from 'src/user/user.service';
 
 @Injectable()
@@ -10,9 +10,9 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  // async validateUser(payload: { id: number }): Promise<UserEntity> {
-  //   return await this.userService.findOneById(payload.id);
-  // }
+  async validateUser(payload: { id: number }): Promise<User> {
+    return await this.userService.findOneById(payload.id);
+  }
 
   // 生成token
   generateAccessToken(payload: Record<string, any>): string {
