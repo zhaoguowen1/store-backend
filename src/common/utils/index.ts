@@ -1,4 +1,12 @@
+import { RediskeyPrefix } from '../enmus/redis-key.enum';
 import { ListToTreeOptions } from './types';
+
+export function getRedisKey(
+  moduleKey: RediskeyPrefix,
+  id?: number | string,
+): string {
+  return `${moduleKey}${id || ''}`;
+}
 
 export function listToTree(
   source: any[],

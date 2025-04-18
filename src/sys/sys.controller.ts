@@ -1,34 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { SysService } from './sys.service';
-import { CreateSyDto } from './dto/create-sy.dto';
-import { UpdateSyDto } from './dto/update-sy.dto';
+import { AllowNoToken } from 'src/common/decorators/token.decorator';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
-@Controller('sys')
+@Controller({
+  path: 'sys',
+  version: '1',
+})
 export class SysController {
   constructor(private readonly sysService: SysService) {}
 
-  @Post()
-  create(@Body() createSyDto: CreateSyDto) {
-    return this.sysService.create(createSyDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.sysService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.sysService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSyDto: UpdateSyDto) {
-    return this.sysService.update(+id, updateSyDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.sysService.remove(+id);
+  // 用户注册
+  @Post('registry')
+  @AllowNoToken()
+  registry(@Body() user: CreateUserDto) {
+    return this.sysService.registry(user);
   }
 }

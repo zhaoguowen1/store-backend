@@ -132,7 +132,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\project\\nest-template\\generated\\prisma",
+      "value": "D:\\project\\store-backend\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -146,7 +146,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\project\\nest-template\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\project\\store-backend\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -159,16 +159,17 @@ const config = {
     "db"
   ],
   "activeProvider": "mysql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "mysql://chenzhiyu:123456@127.0.0.1:3306/store_web_project?schema=public"
+        "value": null
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?prisma @db是什么意思\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id         Int      @id @default(autoincrement())\n  username   String\n  password   String\n  salt       String\n  email      String   @unique @default(\"\")\n  freezed    Int      @default(0)\n  avatar     String   @default(\"\")\n  desc       String   @default(\"\")\n  createTime DateTime @default(dbgenerated(\"NOW()\")) @map(\"create_time\") @db.DateTime\n  updateTime DateTime @default(dbgenerated(\"NOW() ON UPDATE NOW() \")) @map(\"update_time\") @db.Timestamp(0)\n\n  @@map(\"user\")\n}\n",
-  "inlineSchemaHash": "9f858848d6c45362ba882a07e007b3a40ebd2ce89eec72fe0e7eef6ad2f69a55",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id         Int      @id @default(autoincrement())\n  username   String\n  password   String\n  salt       String\n  email      String   @unique @default(\"\")\n  freezed    Int      @default(0)\n  avatar     String   @default(\"\")\n  desc       String   @default(\"\")\n  createTime DateTime @default(dbgenerated(\"NOW()\")) @map(\"create_time\") @db.DateTime\n  updateTime DateTime @default(dbgenerated(\"NOW() ON UPDATE NOW() \")) @map(\"update_time\") @db.Timestamp(0)\n\n  @@map(\"user\")\n}\n",
+  "inlineSchemaHash": "1b7a3bf5451abadcb32a93f2900b144dd65355c6dfbf4e1d190b3d2bfc38b567",
   "copyEngine": true
 }
 
