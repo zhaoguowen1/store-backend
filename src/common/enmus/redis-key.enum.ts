@@ -1,4 +1,4 @@
-export const enum RediskeyPrefix {
+export const enum RedisKeyPrefix {
   USER_INFO = 'user:info:',
   USER_ROLE = 'user:role:',
   PRODUCT_INFO = 'product:info:',

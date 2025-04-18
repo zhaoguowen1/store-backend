@@ -130,6 +130,45 @@ exports.Prisma.UserScalarFieldEnum = {
   updateTime: 'updateTime'
 };
 
+exports.Prisma.UserOnRoleScalarFieldEnum = {
+  userId: 'userId',
+  roleId: 'roleId',
+  createTime: 'createTime',
+  updateTime: 'updateTime'
+};
+
+exports.Prisma.RoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  desc: 'desc',
+  createTime: 'createTime',
+  updateTime: 'updateTime'
+};
+
+exports.Prisma.RoleOnPermissionScalarFieldEnum = {
+  roleId: 'roleId',
+  permissionId: 'permissionId'
+};
+
+exports.Prisma.PermissionScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  code: 'code',
+  type: 'type',
+  parentId: 'parentId',
+  createTime: 'createTime',
+  updateTime: 'updateTime'
+};
+
+exports.Prisma.PermissionApiScalarFieldEnum = {
+  id: 'id',
+  apiUrl: 'apiUrl',
+  apiMethod: 'apiMethod',
+  permissionId: 'permissionId',
+  createTime: 'createTime',
+  updateTime: 'updateTime'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -144,9 +183,29 @@ exports.Prisma.UserOrderByRelevanceFieldEnum = {
   desc: 'desc'
 };
 
+exports.Prisma.RoleOrderByRelevanceFieldEnum = {
+  name: 'name',
+  desc: 'desc'
+};
+
+exports.Prisma.PermissionOrderByRelevanceFieldEnum = {
+  title: 'title',
+  code: 'code'
+};
+
+exports.Prisma.PermissionApiOrderByRelevanceFieldEnum = {
+  apiUrl: 'apiUrl',
+  apiMethod: 'apiMethod'
+};
+
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  UserOnRole: 'UserOnRole',
+  Role: 'Role',
+  RoleOnPermission: 'RoleOnPermission',
+  Permission: 'Permission',
+  PermissionApi: 'PermissionApi'
 };
 
 /**

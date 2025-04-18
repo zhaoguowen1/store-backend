@@ -1,8 +1,8 @@
-import { RediskeyPrefix } from '../enmus/redis-key.enum';
+import { RedisKeyPrefix } from '../enmus/redis-key.enum';
 import { ListToTreeOptions } from './types';
 
 export function getRedisKey(
-  moduleKey: RediskeyPrefix,
+  moduleKey: RedisKeyPrefix,
   id?: number | string,
 ): string {
   return `${moduleKey}${id || ''}`;
