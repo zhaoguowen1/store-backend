@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { User } from 'generated/prisma';
 import { compare, genSalt, hash } from 'bcryptjs';
 import { RedisKeyPrefix } from 'src/common/enmus/redis-key.enum';
 import { getRedisKey } from 'src/common/utils';
@@ -10,6 +9,7 @@ import { LoginUserDto } from './dto/loginUser.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { ForgotUserDto } from './dto/forgot-user.dto';
 import { EmailService } from 'src/common/services/email.service';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class SysService {
@@ -80,7 +80,7 @@ export class SysService {
       },
     });
     if (defaultRole) {
-      await this.prisma.userRole.create({
+      await this.prisma.userOnRole.create({
         data: {
           userId: userInfo.id,
           roleId: defaultRole.id,
