@@ -9,6 +9,8 @@ import { RedisModule } from './redis/redis.module';
 import { ResponseInterceptor } from './common/interceptors/response.interceptor';
 import { HttpExceptionsFilter } from './common/filters/http-exceptions.filter';
 import { PrismaModule } from './prisma/prisma.module';
+import { RoleModule } from './role/role.module';
+import { PermissionModule } from './permission/permission.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { PrismaModule } from './prisma/prisma.module';
     SysModule,
     AuthModule,
     PrismaModule,
+    RoleModule,
+    PermissionModule,
   ],
   controllers: [AppController],
   providers: [

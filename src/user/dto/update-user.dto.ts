@@ -1,4 +1,10 @@
-import { IsEmail, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
+import {
+  IsArray,
+  IsEmail,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+} from 'class-validator';
 
 export class UpdateUserDto {
   @IsNotEmpty({ message: 'ID不能为空' })
@@ -15,5 +21,7 @@ export class UpdateUserDto {
   @IsNumber({}, { message: '冻结状态必须为number类型' })
   freezed?: number;
 
-  roles?: number[];
+  @IsOptional()
+  @IsArray({ message: '角色ID必须为数组类型' })
+  roleIds?: number[];
 }

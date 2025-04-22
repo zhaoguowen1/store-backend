@@ -10,7 +10,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async validateUser(payload: { id: number }): Promise<User> {
+  async validateUser(payload: { id: number }): Promise<Partial<User> | null> {
     return await this.userService.findOneById(payload.id);
   }
 

@@ -20,16 +20,15 @@ export class SysService {
     private readonly emailService: EmailService,
   ) {}
 
-  /**注册
+  /**
+   * 注册
    * @param createUserDto 用户信息
    * @returns 返回用户信息
    * @throws 如果用户名或注册邮箱已存在，返回异常
    * @thorws 如果两次输入的密码不一致，返回异常
    * @thorws 如果验证码有误或已过期，返回异常
    */
-  async registry(
-    user: CreateUserDto,
-  ): Promise<Omit<User, 'password' | 'salt'>> {
+  async registry(user: CreateUserDto): Promise<Partial<User>> {
     let { username, password, confirmPassword, email, code } = user;
     const exist = await this.prisma.user.findUnique({
       where: {
@@ -57,17 +56,14 @@ export class SysService {
     }
     const salt = await genSalt();
     password = await hash(password, salt);
-    const {
-      password: _,
-      salt: __,
-      ...userInfo
-    } = await this.prisma.user.create({
+    const userInfo = await this.prisma.user.create({
       data: {
         username,
         password,
         salt,
         email,
       },
+      omit: { password: true, salt: true },
     });
     await this.redis.set(
       getRedisKey(RedisKeyPrefix.USER_INFO, userInfo.id),
@@ -90,7 +86,8 @@ export class SysService {
     return userInfo;
   }
 
-  /**登录
+  /**
+   * 登录
    * @param loginUserDto 登录信息
    * @returns 返回token
    * @throws 用户名或密码有误，返回异常
