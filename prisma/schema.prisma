@@ -66,25 +66,25 @@ model RoleOnPermission {
 model Permission {
   id            Int                @id @default(autoincrement())
   title         String
-  code          String
+  code          String             @unique
   type          Int
   parentId      Int                @map("parent_id")
   createTime    DateTime           @default(dbgenerated("NOW()")) @map("create_time") @db.DateTime
   updateTime    DateTime           @default(dbgenerated("NOW() ON UPDATE NOW() ")) @map("update_time") @db.Timestamp(0)
   roles         RoleOnPermission[]
-  permissionApi PermissionApi[]
+  permissionApi PermissionApi?
 
   @@map("permission")
 }
 
 model PermissionApi {
-  id           Int        @id @default(autoincrement())
-  apiUrl       String     @map("api_url")
-  apiMethod    String     @map("api_method")
-  permissionId Int        @map("permission_id")
-  permission   Permission @relation(fields: [permissionId], references: [id])
-  createTime   DateTime   @default(dbgenerated("NOW()")) @map("create_time") @db.DateTime
-  updateTime   DateTime   @default(dbgenerated("NOW() ON UPDATE NOW() ")) @map("update_time") @db.Timestamp(0)
+  id           Int         @id @default(autoincrement())
+  apiUrl       String      @map("api_url")
+  apiMethod    String      @map("api_method")
+  createTime   DateTime    @default(dbgenerated("NOW()")) @map("create_time") @db.DateTime
+  updateTime   DateTime    @default(dbgenerated("NOW() ON UPDATE NOW() ")) @map("update_time") @db.Timestamp(0)
+  permissionId Int?        @unique @map("permission_id")
+  permission   Permission? @relation(fields: [permissionId], references: [id])
 
   @@map("permission_api")
 }

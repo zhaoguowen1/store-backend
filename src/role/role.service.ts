@@ -101,4 +101,21 @@ export class RoleService {
     }
     return '更新成功！';
   }
+
+  /**
+   * 删除角色
+   * @param id 要删除的角色id
+   * @returns 返回删除结果
+   */
+  async delete(id: number): Promise<string> {
+    const exist = await this.prisma.role.findUnique({ where: { id } });
+    if (!exist) {
+      throw new HttpException(
+        '角色不存在或已删除',
+        HttpStatus.EXPECTATION_FAILED,
+      );
+    }
+    await this.prisma.role.delete({ where: { id } });
+    return '删除成功！';
+  }
 }

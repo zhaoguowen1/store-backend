@@ -1,16 +1,8 @@
-import { IsArray, IsNotEmpty, IsOptional } from 'class-validator';
+import { PartialType } from '@nestjs/mapped-types';
+import { IsNotEmpty } from 'class-validator';
+import { CreateRoleDto } from './create-role.dto';
 
-export class UpdateRoleDto {
+export class UpdateRoleDto extends PartialType(CreateRoleDto) {
   @IsNotEmpty({ message: '角色id不能为空' })
   id: number;
-
-  @IsOptional()
-  name?: string;
-
-  @IsOptional()
-  desc?: string;
-
-  @IsOptional()
-  @IsArray({ message: '角色权限必须为数组类型' })
-  permissions?: number[];
 }

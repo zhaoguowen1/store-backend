@@ -1,34 +1,37 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { PermissionService } from './permission.service';
+import { PermissionListDto } from './dto/permission-list.dto';
 import { CreatePermissionDto } from './dto/create-permission.dto';
 import { UpdatePermissionDto } from './dto/update-permission.dto';
 
-@Controller('permission')
+@Controller({
+  path: 'permission',
+  version: '1',
+})
 export class PermissionController {
   constructor(private readonly permissionService: PermissionService) {}
 
-  @Post()
-  create(@Body() createPermissionDto: CreatePermissionDto) {
-    return this.permissionService.create(createPermissionDto);
+  // 列表
+  @Post('list')
+  getPermissionList(@Body() dto: PermissionListDto) {
+    return this.permissionService.getList(dto);
   }
 
-  @Get()
-  findAll() {
-    return this.permissionService.findAll();
+  // 创建
+  @Post('create')
+  create(@Body() dto: CreatePermissionDto) {
+    return this.permissionService.create(dto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.permissionService.findOne(+id);
+  // 编辑
+  @Post('edit')
+  edit(@Body() dto: UpdatePermissionDto) {
+    return this.permissionService.edit(dto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePermissionDto: UpdatePermissionDto) {
-    return this.permissionService.update(+id, updatePermissionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.permissionService.remove(+id);
+  // 删除
+  @Get('delete')
+  delete(@Query('id') id: number) {
+    return this.permissionService.delete(id);
   }
 }

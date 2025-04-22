@@ -1,7 +1,7 @@
 import { IsOptional } from 'class-validator';
 import { QueryParams } from 'src/common/utils/types';
 
-export class UserListDto extends QueryParams {
+export class PermissionListDto extends QueryParams {
   @IsOptional()
-  username?: string;
+  name?: string;
 }
